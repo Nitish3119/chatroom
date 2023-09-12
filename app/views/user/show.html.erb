@@ -1,0 +1,55 @@
+<h4 class="ui center aligned medium header">
+  <img src="<%= asset_path('chat32.png') %>" alt="Chat Image">
+  All Chat Rooms
+</h4>
+
+<div class="ui two column grid center aligned">
+  <div class="five wide column">
+    <div class="ui fluid raised chatbox card box-col">
+      <%= link_to "Create new chat room", new_room_path, class: "ui secondary inverted basic button"%>
+      <% if @rooms.any? %>
+        <div class="content">
+          <br/>
+          <br/>
+          <% @rooms.each_with_index do |room, i| %>
+            <%= link_to room_show_room_path(id: current_user.id, room_id: room.id), class: "ui secondary basic button" do %>
+              <%= room.title %>
+            <% end %>
+            <br/>
+            <br/>
+          <% end %>
+        </div>
+      <% else %>
+        <div class="content">
+          No Active chat, create one or join some
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="three wide column">
+    <div class="ui fluid chatbox raised card box-col">
+      <div class="content" id="messages">
+        <div class="ui feed" id="message-container">
+          <h2>All Public rooms</h2>
+          <% if @public_rooms.any? %>
+            <% @public_rooms.each_with_index do |room, i| %>
+              <div class="white mb-10">
+                <%= link_to join_chat_room_user_path(room_id: room.id), class: "mr-10" do %>
+                   <i class="fa-solid fa-plus icon" title="Add user to room"></i>
+                <% end %>
+                <%= room.title %>
+              </div>
+              <br/>
+              <br/>
+            <% end %>
+          <% else %>
+          <br/>
+            No Active Public room, create one
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

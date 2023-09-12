@@ -1,0 +1,17 @@
+<div class="new-form">
+  <a href="/login"> <button class="ui inverted button float-right" ><b> Back To Login </b></button> </a>
+  <center>
+    <%= form_for :user, url: user_index_path, method: :post, html: { class: "ui form signup" } do |f| %>
+      <div class="field required">
+        <h2 class="white">Please fill the details to start the chat!</h2>
+        <%= f.label :name, "Name", class: "new-lable" %>
+        <%= f.text_field :name, placeholder: "First Name or may be Full Name", name: "name" %>
+      </div>
+      <div class="field required">
+        <%= f.label :password, "Password", class: "new-lable" %>
+        <%= f.password_field :password, placeholder: "Password", name: "password" %>
+      </div>
+      <%= f.submit "Submit", class: "ui button", type: "submit" %>
+    <% end %>
+  </center>
+</div>

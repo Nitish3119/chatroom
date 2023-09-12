@@ -1,0 +1,73 @@
+@import "semantic-ui";
+
+.chatbox {
+  height: 350px;
+}
+
+#messages {
+  height: 15em;
+  overflow: auto;
+}
+
+.input button {
+  display: none;
+}
+
+.signup{
+  width: 50%;
+  background-color: #072E33;
+  padding: 15px 30px 15px 30px;
+  border-radius: 15px;
+  margin-top: 10%;
+}
+.new-lable{
+  color: white !important;
+  text-align: justify;
+}
+.seg-color{
+  background-color: #294D61 !important;
+}
+.white{
+  color: white !important;
+}
+.nav-col{
+  background-color: #398589 !important ;
+}
+.box-col{
+  background-color: #54acb1 !important;
+}
+.w-auto{
+  width: auto !important;
+}
+.float-left{
+  float: left !important;
+}
+.float-right{
+  float: right !important;
+}
+.textbox-col{
+  background-color: #3d3e3f !important;
+  color: white !important;
+  font: bold !important;
+}
+.show-div{
+  width: 30%;
+}
+.icon{
+  height: 30px;
+  width: 30px;
+  color: black;
+}
+.mr-10{
+  margin-right: 10px;
+}
+.mb-10{
+  margin-bottom: 10px;
+}
+.ml-10{
+  margin-left: 10px !important;
+}
+.big-icon{
+  height: 100px;
+  width: 100px;
+}

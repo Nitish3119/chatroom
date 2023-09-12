@@ -1,0 +1,86 @@
+<div class="ui two column grid ">
+  <div class="tewlve wide column">
+    <h1><%= @chat_room.title%></h1>
+  </div>
+  <% if current_user.id != @chat_room.created_by %>
+    <div class="three wide column ">
+      <%= link_to room_leave_room_path, class: "ui secondary basic button" do %>
+        Leave this Room
+      <% end %>
+    </div>
+  <% else %>
+    <div class="three wide column ">
+      <%= link_to room_delete_chat_room_path, class: "ui secondary basic button" do %>
+        Delete this Room
+      <% end %>
+    </div>
+  <% end %>
+</div>
+
+<div class="ui two column grid" id="room-id" data-room-id="<%= @chat_room.id%>">
+  <div class="tewlve wide column">
+    <div class="ui fluid chatbox raised card box-col">
+      <div class="content" id="messages">
+        <div class="ui feed" id="message-container">
+          <%= render @messages %>
+        </div>
+      </div>
+      <div class="extra content">
+        <%= form_for @message, html: { class: "ui reply form" }, url: message_path do |f| %>
+          <div class="field">
+            <div class="ui fluid icon input box-col">
+              <%= f.text_field :body, class: "textbox-col" %>
+              <%= f.hidden_field :room_id, value: @chat_room.id %>
+              <%= f.button class: "ui secondary basic button ml-10", type: "submit" do %>
+                <i class="fa-solid fa-share icon"></i>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <div class="three wide column">
+    <div class="ui fluid chatbox raised card box-col">
+      <div class="content" id="messages">
+        <div class="ui feed" id="message-container">
+          <div><b>All Users in this room</b></div><br/>
+          <% @users.each do |user| %>
+            <div class="white mb-10">
+              <% if current_user.id == @chat_room.created_by %>
+                <% if user.id != @chat_room.created_by %>
+                  <%= link_to room_remove_member_path(id: current_user.id, room_id: @chat_room.id, user_id: user.id), class: "mr-10" do %>
+                     <i class="fa-solid fa-minus icon" title="Remove user from room"></i>
+                  <% end %>
+                 <% end %>
+              <% end %>
+              <%= user.username + (" ( chat admin )" if @chat_room.created_by == user.id).to_s + (" ( You )" if current_user == user).to_s%>
+            </div>
+          <%end%>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <% if current_user.id == @chat_room.created_by %>
+  <div class="three wide column">
+    <div class="ui fluid chatbox raised card box-col">
+      <div class="content" id="messages">
+        <div class="ui feed" id="message-container">
+          <div><b>Other Users</b></div><br/>
+          <% @all_users.each do |user| %>
+            <div class="white mb-10">
+              <%= link_to room_add_member_path(id: current_user.id, room_id: @chat_room.id, user_id: user.id), class: "mr-10" do %>
+                 <i class="fa-solid fa-plus icon" title="Add user to room"></i>
+              <% end %>
+              <%= user.username%>
+            </div>
+          <%end%>
+        </div>
+      </div>
+    </div>
+  </div>
+  <% end %>
+
+</div>
