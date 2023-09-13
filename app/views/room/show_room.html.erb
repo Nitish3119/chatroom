@@ -26,17 +26,12 @@
         </div>
       </div>
       <div class="extra content">
-        <%= form_for @message, html: { class: "ui reply form" }, url: message_path do |f| %>
-          <div class="field">
-            <div class="ui fluid icon input box-col">
-              <%= f.text_field :body, class: "textbox-col" %>
-              <%= f.hidden_field :room_id, value: @chat_room.id %>
-              <%= f.button class: "ui secondary basic button ml-10", type: "submit" do %>
-                <i class="fa-solid fa-share icon"></i>
-              <% end %>
-            </div>
-          </div>
-        <% end %>
+        <div class="ui fluid icon input box-col wid-50">
+          <input type="text" id="message-body" placeholder="Enter your message" class="textbox-col">
+          <button type="submit" id="message-submit" class="ui secondary basic button ml-10">
+            Send
+          </button>
+        </div>
       </div>
     </div>
   </div>
@@ -84,3 +79,35 @@
   <% end %>
 
 </div>
+
+<script>
+  $(document).ready(function () {
+    $('#message-submit').on('click', function () {
+      var text = document.getElementById("message-body").value.trim();
+      var room_id = parseInt(document.getElementById("room-id").getAttribute("data-room-id"), 10);
+
+      if (text === "") {
+        alert("Please enter a message to send.");
+        return false;
+      } else {
+        $.ajax({
+          type: 'POST',
+          url: '/message',
+          data: {
+            body: text,
+            room_id: room_id,
+            authenticity_token: $('meta[name="csrf-token"]').attr('content')
+          },
+          success: function (response) {
+            console.log("response", response)
+            // var message = response.message;
+            // postMessage(message);
+          },
+          error: function (xhr, status, error) {
+            console.error('Error:', error);
+          }
+        });
+      }
+    });
+  });
+</script>

@@ -1,0 +1,25 @@
+<div class="requests">
+  <% @requests.each do |req| %>
+  <div class="ui three column grid center aligned">
+
+    <div class="ten wide column">
+      <div class="content">
+        <h3> <%= req.owner.camelcase %> has requested to join the <b> <%= req.room.title %></b> </h3>
+      </div>
+    </div>
+
+    <div class="two wide column">
+      <div class="content">
+        <%= link_to "Accept", accept_user_path(request_id: req.id), class: "mini ui secondary basic button" %>
+      </div>
+    </div>
+
+    <div class="two wide column">
+      <div class="content">
+        <%= link_to "Reject", reject_user_path(request_id: req.id), class: "mini ui secondary basic button" %>
+      </div>
+    </div>
+
+  </div>
+  <% end %>
+</div>

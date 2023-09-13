@@ -27,16 +27,47 @@
     </div>
   </div>
 
-  <div class="three wide column">
+  <div class="four wide column">
     <div class="ui fluid chatbox raised card box-col">
       <div class="content" id="messages">
         <div class="ui feed" id="message-container">
-          <h2>All Public rooms</h2>
+          <h2>Public rooms</h2>
           <% if @public_rooms.any? %>
             <% @public_rooms.each_with_index do |room, i| %>
               <div class="white mb-10">
                 <%= link_to join_chat_room_user_path(room_id: room.id), class: "mr-10" do %>
-                   <i class="fa-solid fa-plus icon" title="Add user to room"></i>
+                   <i class="fa-solid fa-plus icon" title="Join this room"></i>
+                <% end %>
+                <%= room.title %>
+              </div>
+              <br/>
+              <br/>
+            <% end %>
+          <% else %>
+          <br/>
+            No Active Public room, create one
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="four wide column">
+    <div class="ui fluid chatbox raised card box-col">
+      <div class="content" id="messages">
+        <div class="ui feed" id="message-container">
+          <h2>Private rooms</h2>
+          <% if @private_rooms.any? %>
+            <% @private_rooms.each_with_index do |room, i| %>
+              <div class="white mb-10">
+                <% if @requested_ids.include?(room.id) %>
+                  <%= link_to withdraw_user_path(room_id: room.id), class: "mr-10" do %>
+                     <i class="fa-solid fa-minus icon" title="Withdraw your request"></i>
+                  <% end %>
+                <% else %>
+                <%= link_to requestt_user_path(room_id: room.id), class: "mr-10" do %>
+                     <i class="fa-solid fa-plus icon" title="Request to join"></i>
+                  <% end %>
                 <% end %>
                 <%= room.title %>
               </div>

@@ -7,6 +7,8 @@ class UserController < ApplicationController
     @message = Message.new
     @messages = Message.custom_display
     @public_rooms = Room.except(@rooms).public_rooms
+    @private_rooms = Room.except(@rooms).private_rooms
+    @requested_ids = user.requests.pluck(:room_id)
   end
 
   def create

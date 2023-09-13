@@ -9,4 +9,12 @@ class User < ApplicationRecord
     where.not(id: users_to_exclude.pluck(:id))
   end
 
+  def requests
+    Request.where(requester: self.id).where(status: "Active")
+  end
+
+  def pending_request
+    Request.where(approver: self.id).where(status: "Active")
+  end
+
 end

@@ -1,25 +1,12 @@
-<div class="ui small nav-col menu">
-  <div class="ui container">
-    <b><%= link_to "Chatroom", root_path, class: "item" %></b>
-    <a class="item">
-      <b>Messages</b>
-    </a>
-    <div class="right menu">
-      <div class="ui dropdown item">
-        <b>Account</b> <i class="dropdown icon"></i>
-          <div class="menu nav-col">
-            <% if logged_in? %>
-              <%= link_to "Logout", logout_path, class: "item", data:{ turbo_method: :delete} %>
-            <% else %>
-              <%= link_to "Log in", login_path, class: "item" %>
-            <% end %>
-          </div>
-      </div>
-      <% if !logged_in? %>
-        <div class="item">
-          <%= link_to "Log in", login_path, class: "ui primary button" %>
+<% if logged_in? %>
+  <div class="ui small nav-col menu">
+    <div class="ui container">
+      <b><%= link_to "Pending Requests(#{current_user.pending_request.count})", all_requests_user_path, class: "item" %></b>
+      <div class="right menu">
+        <div class="menu nav-col">
+          <%= link_to "Logout", logout_path, class: "item", data:{ turbo_method: :delete} %>
         </div>
-      <% end %>
+      </div>
     </div>
   </div>
-</div>
+<% end %>

@@ -1,6 +1,11 @@
 Rails.application.routes.draw do
   resources :user, only: [:new, :create, :show] do
     member do
+      get :requestt, to: 'requests#requestt'
+      get :withdraw, to: 'requests#withdraw'
+      get :accept, to: 'requests#accept'
+      get :reject, to: 'requests#reject'
+      get :all_requests, to: 'requests#all_requests'
       get :join_chat_room
       resources :room, only: [:new, :create] do
         get :show_room
@@ -11,9 +16,8 @@ Rails.application.routes.draw do
       end
     end
   end
-  get 'messages/create'
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
+  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
   # Defines the root path route ("/")
   root "sessions#new"
   get 'login', to: 'sessions#new'

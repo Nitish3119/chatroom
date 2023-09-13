@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_09_12_044130) do
+ActiveRecord::Schema[7.0].define(version: 2023_09_13_092559) do
   create_table "members", force: :cascade do |t|
     t.integer "user_id", null: false
     t.integer "room_id", null: false
@@ -26,6 +26,16 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_12_044130) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "room_id"
+  end
+
+  create_table "requests", force: :cascade do |t|
+    t.integer "requester"
+    t.integer "approver"
+    t.integer "room_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "status"
+    t.index ["room_id"], name: "index_requests_on_room_id"
   end
 
   create_table "rooms", force: :cascade do |t|
@@ -45,4 +55,5 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_12_044130) do
 
   add_foreign_key "members", "rooms"
   add_foreign_key "members", "users"
+  add_foreign_key "requests", "rooms"
 end

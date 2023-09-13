@@ -3,6 +3,7 @@ class Room < ApplicationRecord
   has_many :messages, dependent: :destroy
   has_many :members, dependent: :destroy
   has_many :user, through: :members
+  has_many :requests
   scope :public_rooms, -> { where(is_private: false) }
   scope :private_rooms, -> { where(is_private: true) }
 
